@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <script>
+        var date = new Date();
+        var y = date.getFullYear();
+        var m = date.getMonth();
+        var d = date.getDate();
+
+        var theDate = new Date(y,m,1); // 지정한 달의 1일
+        var theDay = theDate.getDay();// 의 요일
+
+        var last=[31,28,31,30,31,30,31,31,30,31,30,31];
+
+        if (y%4 && y%100 !=0 || y%400 == 0 ) lastDate=last[1]=29; //암기
+
+        var lastDate=last[m];
+        var row=Math.ceil((theDay+lastDate)/7); //필요한 행의 개수
+
+
+        document.write("<h1>"+y+"."+(m+1)+"</h1>");
+
+        var calendar ="<table border='1'>";
+        calendar += "<tr>";
+        calendar += "<th>일</th>";
+        calendar += "<th>월</th>";
+        calendar += "<th>화</th>";
+        calendar += "<th>수</th>";
+        calendar += "<th>목</th>";
+        calendar += "<th>금</th>";
+        calendar += "<th>토</th>";
+        calendar += "</tr>";                   // 정적인 부분
+
+        var dNum = 1; //날짜로 표출되는 변수
+
+        for(var tr=1; tr<=row; tr++){
+            calendar+="<tr>"
+                for(var td=0; td<=6; td++){
+                    if(tr==1 && td<theDay || dNum>lastDate){
+                    calendar += "<td> &nbsp; </td>";
+                    }else{
+                        calendar +="<td>"+dNum+"</td>";
+                        dNum++
+                    }
+                }
+            calendar+="</tr>"    //  아 왜 나는 월요일 부터 1일일까....
+        }
+
+        calendar += "</table>"
+        document.write(calendar);
+
+
+        </script>
+    </head>
+</html>
+
+<!--
+
+1. 매달 1일이 무슨 요일인지
+2. 마지막 날짜 30일인지 31일인지
+3. 올해가 윤년인지 아닌지 -윤년구하는 공식
+4. 정적인 부분은 코딩, 동적인 부분은 for나 while이나-->
